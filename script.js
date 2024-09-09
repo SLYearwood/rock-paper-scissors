@@ -16,12 +16,27 @@ function getComputerChoice() {
   return computerMove;
 }
 
-function getPlayerChoice() {
-  return (choice = prompt("What do you choose?"));
-}
+let humanMove = '';
+const movePool = document.querySelector(".selections");
+movePool.addEventListener('click', (event) => {
+  let playerMove = event.target;
+  
+  switch(true) {
+    case playerMove.classList.contains('rock-button'):
+      humanMove = 'rock';
+      break;
+    case playerMove.classList.contains('paper-button'):
+      humanMove = 'paper';
+      break;
+    case playerMove.classList.contains('scissors-button'):
+      humanMove = 'scissors';
+      break;
+  }
+  playRound();
+})
+
 
 function playRound() {
-  const humanMove = getPlayerChoice().toLowerCase();
   const computerMove = getComputerChoice();
   if (humanMove === "rock") {
     if (computerMove === "rock") {
@@ -56,22 +71,6 @@ function playRound() {
       scoreboard.wins++;
       alert("Win!");
     }
-  } else {
-    console.log("Invalid Move");
-    playRound();
-  }
+  } 
 }
 
-function playGame() {
-  for (let i = 0; i < 5; i++) {
-    playRound();
-  }
-  if (scoreboard.wins > scoreboard.losses) {
-    alert("YOU WIN!");
-  } else if (scoreboard.wins < scoreboard.losses) {
-    alert("YOU LOSE!");
-  } else {
-    alert("TIE!");
-  }
-}
-playGame();
