@@ -1,8 +1,8 @@
-const scoreboard = {
-  wins: 0,
-  losses: 0,
-  ties: 0,
-};
+let scoreboard = localStorage.getItem("scoreboard") 
+? JSON.parse(localStorage.getItem("scoreboard"))
+: {wins: 0, losses: 0, ties: 0};
+ 
+
 
 function getComputerChoice() {
   let randomNum = Math.random();
@@ -38,40 +38,25 @@ movePool.addEventListener('click', (event) => {
 
 
 function playRound() {
+  const score = document.querySelector(".scoreboard"); 
+  const result = document.querySelector(".results");
   const computerMove = getComputerChoice();
-  if (humanMove === "rock") {
-    if (computerMove === "rock") {
-      scoreboard.ties++;
-      alert("Tie!");
-    } else if (computerMove === "paper") {
-      scoreboard.losses++;
-      alert("Lose!");
-    } else {
-      scoreboard.wins++;
-      alert("Win!");
-    }
-  } else if (humanMove === "paper") {
-    if (computerMove === "paper") {
-      scoreboard.ties++;
-      alert("Tie!");
-    } else if (computerMove === "scissors") {
-      scoreboard.losses++;
-      alert("Lose!");
-    } else {
-      scoreboard.wins++;
-      alert("Win!");
-    }
-  } else if (humanMove === "scissors") {
-    if (computerMove === "scissors") {
-      scoreboard.ties++;
-      alert("Tie!");
-    } else if (computerMove === "rock") {
-      scoreboard.losses++;
-      alert("Lose!");
-    } else {
-      scoreboard.wins++;
-      alert("Win!");
-    }
-  } 
+  if (humanMove === computerMove) {
+    scoreboard.ties ++;
+    result.textContent = `Tie! You both picked ${humanMove}!`;
+  } else if (
+    (humanMove === "rock" && computerMove === "scissors") || 
+    (humanMove === "paper" && computerMove === "rock") ||
+    (humanMove === "scissors" && computerMove === "paper") 
+  ) {
+      scoreboard.wins ++;
+      result.textContent = `You Win! You picked ${humanMove}`;
+   } else {
+    scoreboard.losses ++;
+    result.textContent = `You Lose! You picked ${humanMove}`;
+   }
+   score.textContent = `Wins: ${scoreboard.wins} Losses: ${scoreboard.losses} Ties: ${scoreboard.ties}`;
+   localStorage.setItem("scoreboard", JSON.stringify(scoreboard));
+
 }
 
