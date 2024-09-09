@@ -5,16 +5,17 @@ const scoreboard = {
 };
 
 function getComputerChoice() {
-  let computerMove = "";
-  if (Math.random() < 1 / 3) {
+  let randomNum = Math.random();
+  if (randomNum < 1 / 3) {
     computerMove = "rock";
-  } else if (Math.random() < 2 / 3) {
+  } else if (randomNum < 2 / 3) {
     computerMove = "paper";
   } else {
     computerMove = "scissors";
   }
   return computerMove;
 }
+
 
 let humanMove = '';
 const movePool = document.querySelector(".selections");
