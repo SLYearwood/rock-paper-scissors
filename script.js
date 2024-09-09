@@ -1,8 +1,8 @@
-const scoreboard = {
-  wins: 0,
-  losses: 0,
-  ties: 0,
-};
+let scoreboard = localStorage.getItem("scoreboard") 
+? JSON.parse(localStorage.getItem("scoreboard"))
+: {wins: 0, losses: 0, ties: 0};
+ 
+
 
 function getComputerChoice() {
   let randomNum = Math.random();
@@ -56,6 +56,7 @@ function playRound() {
     result.textContent = `You Lose! You picked ${humanMove}`;
    }
    score.textContent = `Wins: ${scoreboard.wins} Losses: ${scoreboard.losses} Ties: ${scoreboard.ties}`;
- 
+   localStorage.setItem("scoreboard", JSON.stringify(scoreboard));
+
 }
 
